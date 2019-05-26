@@ -61,7 +61,7 @@ class AuthController extends Controller
         // Valid categoriy if exsist
         $validCategory = Category::where('id', $request->category_id)->first();
         
-        if ($validate == true && $validCategory != null) {
+        if ($validate == true && $validCategory) {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
