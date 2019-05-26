@@ -17,7 +17,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        return User::with('workers')->where('id', $user->id)->first();
+        $data = User::with('workers')->where('id', $user->id)->first();
+        return response()->json(['code' => '200', 'data' => $data, 'status'=> true], 200);
     }
 
     /**
@@ -28,7 +29,8 @@ class UserController extends Controller
     public function region(Request $request)
     {
         $user = $request->user();
-        return Region::with('city')->where('city_id', $user->city_id)->get();
+        $data = Region::with('city')->where('city_id', $user->city_id)->get();
+        return response()->json(['code' => '200', 'data' => $data, 'status'=> true], 200);
     }
 
     /**

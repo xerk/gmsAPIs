@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::all();
+        $data = Category::all();
+        return response()->json(['code' => '200', 'data' => $data, 'status'=> true], 200);
     }
 
     /**

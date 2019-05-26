@@ -15,7 +15,8 @@ class RegionController extends Controller
      */
     public function index()
     {
-        return Region::all();
+        $data = Region::all();
+        return response()->json(['code' => '200', 'data' => $data, 'status'=> true], 200);
     }
 
     /**

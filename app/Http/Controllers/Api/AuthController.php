@@ -77,13 +77,13 @@ class AuthController extends Controller
                 ]);
             }
         }
-        return response()->json('Register successfully', 200);
+        return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'status' => true], 200);
     }
     public function logout()
     {
         auth()->user()->tokens->each(function ($token, $key) {
             $token->delete();
         });
-        return response()->json('Logged out successfully', 200);
+        return response()->json(['code' => '200', 'success_message' => 'Logged out successfully', 'status' => true], 200);
     }
 }

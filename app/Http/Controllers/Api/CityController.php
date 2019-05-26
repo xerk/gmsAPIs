@@ -15,7 +15,8 @@ class CityController extends Controller
      */
     public function index()
     {
-        return City::all();
+        $data = City::all();
+        return response()->json(['code' => '200', 'data' => $data, 'status'=> true], 200);
     }
 
     /**

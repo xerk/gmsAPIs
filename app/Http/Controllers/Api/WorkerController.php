@@ -16,9 +16,11 @@ class WorkerController extends Controller
     public function index(Request $request)
     {
         $per_page = $request->per_page ? $request->per_page : 10;
-        return User::with(['workers' => function ($query) {
+        $data = User::with(['workers' => function ($query) {
             $query->where('category_id', 1);
         }, 'workerOrders'])->where('job', 1)->where('region_id', $request->region_id)->paginate($per_page);
+        
+        return response()->json(['code' => '200', 'data' => $data, 'status'=> true], 200);
     }
 
     /**
