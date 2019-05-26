@@ -22,8 +22,8 @@ class CategoriesTableSeeder extends Seeder
             // create permissions for each collection item
             Category::create([
                 'name' => $item,
-                'image' => '/category/default.jpg',
-                'body' => 'This is '.$item,
+                'image' => 'category/default.jpg',
+                'body' => $item,
             ]);
         });
     }
