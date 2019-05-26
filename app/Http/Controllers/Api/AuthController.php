@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\User;
 use App\Worker;
+use App\Category;
 use App\CategoryUser;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -56,7 +57,11 @@ class AuthController extends Controller
                 'age' => 'required',
             ]);
         }
-        if ($validate == true) {
+
+        // Valid categoriy if exsist
+        $validCategory = Category::where('id', $request->category_id)->first();
+        
+        if ($validate == true && $validCategory) {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -73,9 +78,10 @@ class AuthController extends Controller
                     'user_id' => $user->id,
                     'price' => $request->price,
                     'category_id' => $request->category_id
-    
                 ]);
             }
+        } else {
+            return response()->json(['code' => '401', 'error_message' => 'Category is empty', 'status' => false], 200);
         }
         return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'status' => true], 200);
     }
