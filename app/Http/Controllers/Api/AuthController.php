@@ -54,7 +54,7 @@ class AuthController extends Controller
                 'job' => 'required',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:6',
-                'age' => 'required',
+                'age' => 'required|numeric',
             ]);
         }
 
@@ -74,7 +74,7 @@ class AuthController extends Controller
             ]);
             
             if ($request->job == 1) {
-                Worker::create([
+                $worker = Worker::create([
                     'user_id' => $user->id,
                     'price' => $request->price,
                     'category_id' => $request->category_id
@@ -83,7 +83,12 @@ class AuthController extends Controller
         } else {
             return response()->json(['code' => '401', 'error_message' => 'Category is empty', 'status' => false], 200);
         }
-        return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'status' => true], 200);
+        if ($request->job == 1) {
+            return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'user' => $user, 'worker' => $worker, 'status' => true], 200);
+        } else {
+            return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'user' => $user, 'status' => true], 200);
+        }
+
     }
     public function logout()
     {
