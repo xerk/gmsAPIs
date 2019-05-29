@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->group(function () {
+Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/user', 'Api\\UserController@index');
     Route::get('/my-region', 'Api\\UserController@region');
     Route::post('/logout', 'Api\AuthController@logout');
