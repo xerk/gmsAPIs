@@ -2,27 +2,20 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\User;
-use App\Region;
+use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user();
-        if ($user->job === 1) {
-            $data = User::with('workers', 'workerOrders')->where('id', $user->id)->first();
-        } else {
-            $data = User::with('workers', 'clientOrders')->where('id', $user->id)->first();
-        }
-        return response()->json(['code' => '200', 'data' => $data, 'status'=> true], 200);
+        //
     }
 
     /**
@@ -30,11 +23,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function region(Request $request)
+    public function create()
     {
-        $user = $request->user();
-        $data = Region::with('city')->where('city_id', $user->city_id)->get();
-        return response()->json(['code' => '200', 'data' => $data, 'status'=> true], 200);
+        //
     }
 
     /**
@@ -45,7 +36,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validate = $request->validate([
+            'user_id' => 'required',
+            'worker_id' => 'required',
+        ]);
+
+        $order = Order::create([
+            'user_id' => $request->user_id,
+            'worker_id' => $request->worker_id,
+            'title' => $request->title,
+            'body' => $request->body,
+            'is_done' => 0,
+        ]);
+
+        return response()->json(['code' => 200, 'order' => $order, 'status' => true]);
     }
 
     /**
@@ -54,9 +59,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        if ($request->job == 1) {
+            $orders = Order::where('worker_id', $request->id)->get();
+        } else {
+            $orders = Order::where('user_id', $request->id)->get();
+        }
     }
 
     /**
@@ -67,7 +76,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -79,7 +88,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = $request->user();
+        $user->fill($request->is_done)->save();
     }
 
     /**

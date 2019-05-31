@@ -16,8 +16,12 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/user', 'Api\\UserController@index');
     Route::get('/my-region', 'Api\\UserController@region');
+    Route::post('/order', 'Api\\OrderController@store');
     Route::post('/logout', 'Api\AuthController@logout');
+    Route::post('/update-order', 'Api\\OrderController@update');
 });
+
+
 
 Route::get('/categories', 'Api\\CategoryController@index');
 Route::get('/cities', 'Api\\CityController@index');
