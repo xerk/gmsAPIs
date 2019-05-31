@@ -79,7 +79,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->isMethod('post')) {
+            
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users,email,'.$request->user()->id,
+                'password' => 'sometimes|nullable|string|min:6',
+                'phone' => 'required|max:255|unique:users,phone'.$request->user()->id,
+                
+            ]);
+            $user = $request->user();
+    
+            $input = $request->except('password', 'avatar');
+            
+            if (! $request->filled('password')) {
+                $user->fill($input)->save();
+                return response()->json(['code' => 200, 'success_message' => __('Profile updated successfully!'), 'status' => true]);
+            }
+            
+            $user->password = bcrypt($request->password);
+            $user->fill($input)->save();
+            return response()->json(['code' => 200, 'success_message' => __('Profile (and password) updated successfully!'), 'status' => true]);
+        }
     }
 
     /**
