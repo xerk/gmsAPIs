@@ -17,7 +17,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/user', 'Api\\UserController@index');
     Route::get('/my-region', 'Api\\UserController@region');
     Route::post('/order', 'Api\\OrderController@store');
-    Route::post('/show-orders', 'Api\\OrderController@show');
+    Route::get('/show-orders', 'Api\\OrderController@show');
     Route::post('/logout', 'Api\AuthController@logout');
     Route::post('/update-order', 'Api\\OrderController@update');
     Route::post('/edit-profile', 'Api\\UserController@update');
