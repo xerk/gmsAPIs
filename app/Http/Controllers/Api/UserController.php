@@ -77,7 +77,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         if ($request->isMethod('post')) {
             
@@ -86,7 +86,7 @@ class UserController extends Controller
                 'email' => 'required|string|email|max:255|unique:users,email,'.$request->user()->id,
                 'password' => 'sometimes|nullable|string|min:6',
                 'phone' => 'required|max:255|unique:users,phone'.$request->user()->id,
-                
+
             ]);
             $user = $request->user();
     
