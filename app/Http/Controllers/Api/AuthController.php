@@ -64,7 +64,7 @@ class AuthController extends Controller
         if ($validate == true && $validCategory) {
             $user = User::create([
                 'name' => $request->name,
-                'email' => $request->email,
+                // 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'job' => $request->job,
                 'phone' => $request->phone,
