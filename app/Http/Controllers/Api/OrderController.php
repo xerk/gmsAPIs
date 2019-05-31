@@ -92,6 +92,8 @@ class OrderController extends Controller
         $order->is_done = $request->is_done;
 
         $order->save();
+
+        return response()->json(['code' => 200, 'data' => $order, 'message' => 'Order has been done', 'status' => true]);
     }
 
     /**
