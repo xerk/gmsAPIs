@@ -61,11 +61,13 @@ class OrderController extends Controller
      */
     public function show(Request $request)
     {
-        if ($request->job == 1) {
-            $orders = Order::where('worker_id', $request->id)->get();
+        $user = $request->user();
+        if ($user->job === 1) {
+            $data = Order::where('worker_id', $user->id)->first();
         } else {
-            $orders = Order::where('user_id', $request->id)->get();
+            $data = Order::where('user_id', $user->id)->first();
         }
+        return response()->json(['code' => '200', 'data' => $data, 'status'=> true], 200);
     }
 
     /**
