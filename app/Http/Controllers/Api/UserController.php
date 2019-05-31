@@ -85,7 +85,7 @@ class UserController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email,'.$request->user()->id,
                 'password' => 'sometimes|nullable|string|min:6',
-                'phone' => 'required|max:255|unique:users,'.$request->user()->id,
+                'phone' => 'required|max:255|unique:users',
 
             ]);
             $user = $request->user();
