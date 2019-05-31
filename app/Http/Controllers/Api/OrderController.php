@@ -88,8 +88,9 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = $request->user();
-        $user->fill($request->is_done)->save();
+        $order = Order::where('id', $request->order_id)->first();
+        
+        $order->fill($request->is_done)->save();
     }
 
     /**
