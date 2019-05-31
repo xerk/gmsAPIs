@@ -40,8 +40,7 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        // dd($request->all());
-        if ($request->job === 1) {
+        
             $validate = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string|max:16|unique:users',
@@ -49,16 +48,15 @@ class AuthController extends Controller
                 'password' => 'required|string|min:6',
                 'age' => 'required',
             ]);
-        } else {
-            $validate = $request->validate([
-                'name' => 'required|string|max:255',
-                'phone' => 'required|string|max:16|unique:users',
-                'job' => 'required',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6',
-                'age' => 'required|numeric',
-            ]);
-        }
+
+            // $validate = $request->validate([
+            //     'name' => 'required|string|max:255',
+            //     'phone' => 'required|string|max:16|unique:users',
+            //     'job' => 'required',
+            //     'email' => 'required|string|email|max:255|unique:users',
+            //     'password' => 'required|string|min:6',
+            //     'age' => 'required|numeric',
+            // ]);
 
         // Valid categoriy if exsist
         $validCategory = Category::where('id', $request->category_id)->first();
@@ -66,7 +64,7 @@ class AuthController extends Controller
         if ($validate == true && $validCategory) {
             $user = User::create([
                 'name' => $request->name,
-                'email' => $request->email,
+                // 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'job' => $request->job,
                 'phone' => $request->phone,
