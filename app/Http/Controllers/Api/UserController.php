@@ -126,7 +126,7 @@ class UserController extends Controller
             $worker = Worker::where('user_id', $user->id)->first();
             $input = $request->all();
             
-            $user->fill($input)->save();
+            $worker->fill($input)->save();
             return response()->json(['code' => 200, 'success_message' => __('Profile updated successfully!'), 'status' => true]);
             
         }
