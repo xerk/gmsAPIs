@@ -57,31 +57,47 @@ class AuthController extends Controller
             //     'password' => 'required|string|min:6',
             //     'age' => 'required|numeric',
             // ]);
+        if ($request->job === 1) {
 
-        // Valid categoriy if exsist
-        $validCategory = Category::where('id', $request->category_id)->first();
-        
-        if ($validate == true && $validCategory) {
+            // Valid categoriy if exsist
+            $validCategory = Category::where('id', $request->category_id)->first();
+            
+            if ($validate == true && $validCategory) {
+                $user = User::create([
+                    'name' => $request->name,
+                    // 'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'job' => $request->job,
+                    'phone' => $request->phone,
+                    'city_id' => $request->city_id,
+                    'region_id' => $request->region_id,
+                    'age' => $request->age,
+                    'gender' => $request->gender
+                ]);
+                
+                if ($request->job === 1) {
+                    $worker = Worker::create([
+                        'user_id' => $user->id,
+                        'price' => $request->price,
+                        'category_id' => $request->category_id,
+                        'biography' => $request->biography,
+                        'experience' => $request->experience
+                    ]);
+                }
+            } else {
+                return response()->json(['code' => '401', 'error_message' => 'Category is empty', 'status' => false], 200);
+            }
+        } else {
             $user = User::create([
                 'name' => $request->name,
-                // 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'job' => $request->job,
                 'phone' => $request->phone,
                 'city_id' => $request->city_id,
                 'region_id' => $request->region_id,
                 'age' => $request->age,
+                'gender' => $request->gender
             ]);
-            
-            if ($request->job == 1) {
-                $worker = Worker::create([
-                    'user_id' => $user->id,
-                    'price' => $request->price,
-                    'category_id' => $request->category_id
-                ]);
-            }
-        } else {
-            return response()->json(['code' => '401', 'error_message' => 'Category is empty', 'status' => false], 200);
         }
         if ($request->job == 1) {
             return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'user' => $user, 'worker' => $worker, 'status' => true], 200);

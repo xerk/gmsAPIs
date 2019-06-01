@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
 			$table->integer('city_id')->unsigned()->index()->nullable();
             $table->integer('region_id')->unsigned()->index()->nullable();
             $table->integer('age')->nullable();
+            $table->integer('gender')->nullable();
 			$table->string('address_line_1')->nullable();
             $table->string('address_line_2')->nullable();
             $table->rememberToken();

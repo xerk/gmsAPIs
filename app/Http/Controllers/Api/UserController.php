@@ -6,6 +6,7 @@ use App\User;
 use App\Region;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Worker;
 
 class UserController extends Controller
 {
@@ -100,6 +101,34 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
             $user->fill($input)->save();
             return response()->json(['code' => 200, 'success_message' => __('Profile (and password) updated successfully!'), 'status' => true]);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateWorker(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            
+            $request->validate([
+                'category_id' => 'required',
+                'experience' => 'required|numeric',
+                'biography' => 'sometimes|nullable|string|min:6',
+                'price' => 'required',
+
+            ]);
+            $user = $request->user();
+            $worker = Worker::where('user_id', $user->id)->first();
+            $input = $request->all();
+            
+            $user->fill($input)->save();
+            return response()->json(['code' => 200, 'success_message' => __('Profile updated successfully!'), 'status' => true]);
+            
         }
     }
 
