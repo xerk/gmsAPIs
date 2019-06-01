@@ -57,7 +57,7 @@ class AuthController extends Controller
             //     'password' => 'required|string|min:6',
             //     'age' => 'required|numeric',
             // ]);
-        if ($request->job === 1) {
+        if ($request->job == 1) {
 
             // Valid categoriy if exsist
             $validCategory = Category::where('id', $request->category_id)->first();
@@ -75,7 +75,7 @@ class AuthController extends Controller
                     'gender' => $request->gender
                 ]);
                 
-                if ($request->job === 1) {
+                if ($request->job == 1) {
                     $worker = Worker::create([
                         'user_id' => $user->id,
                         'price' => $request->price,
