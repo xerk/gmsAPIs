@@ -15,6 +15,15 @@ class Comment extends Model
 
     protected $dates = ['deleted_at'];
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'body', 'user_id', 'user_send_id', 'likes', 'rating'
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id');

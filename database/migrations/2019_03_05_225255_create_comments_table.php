@@ -13,7 +13,7 @@ class CreateCommentsTable extends Migration {
 			$table->bigInteger('user_id')->unsigned()->index();
 			$table->bigInteger('user_send_id')->unsigned()->index();
 			$table->string('likes')->nullable();
-			$table->integer('rating')->nullable();
+			$table->float('rating')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});
