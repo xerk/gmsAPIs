@@ -84,6 +84,7 @@ class AuthController extends Controller
                         'experience' => $request->experience
                     ]);
                 }
+                return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'user' => $user, 'worker' => $worker, 'status' => true], 200);
             } else {
                 return response()->json(['code' => '401', 'error_message' => 'Category is empty', 'status' => false], 200);
             }
@@ -98,10 +99,6 @@ class AuthController extends Controller
                 'age' => $request->age,
                 'gender' => $request->gender
             ]);
-        }
-        if ($request->job == 1) {
-            return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'user' => $user, 'worker' => $worker, 'status' => true], 200);
-        } else {
             return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'user' => $user, 'status' => true], 200);
         }
 
