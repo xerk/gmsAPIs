@@ -39,10 +39,9 @@ class CommentController extends Controller
         if ($request->isMethod('post')) {
             
             $request->validate([
-                'category_id' => 'required',
-                'experience' => 'required|numeric',
-                'biography' => 'sometimes|nullable|string|min:6',
-                'price' => 'required',
+                'user_id' => 'required',
+                'body' => 'required',
+                'rating' => 'sometimes|nullable',
 
             ]);
             $user = $request->user();
