@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('/edit-profile', 'Api\\UserController@update');
     Route::post('/edit-worker', 'Api\\UserController@updateWorker');
     Route::post('/review', 'Api\\CommentController@store');
+    Route::post('/check', 'Api\\UserController@checkPassword');
 });
 
 

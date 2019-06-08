@@ -138,8 +138,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function checkPassword(Request $request)
     {
-        //
+        $user = $request->user();
+
+        return Hash::check($request->password, $user->password );
     }
 }
