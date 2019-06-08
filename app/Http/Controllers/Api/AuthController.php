@@ -63,6 +63,12 @@ class AuthController extends Controller
             $validCategory = Category::where('id', $request->category_id)->first();
             
             if ($validate == true && $validCategory) {
+
+                $validate = $request->validate([
+                    'category_id' => 'required',
+                    'identifier' => 'required',
+                ]);
+
                 $user = User::create([
                     'name' => $request->name,
                     // 'email' => $request->email,
@@ -81,7 +87,8 @@ class AuthController extends Controller
                         'price' => $request->price,
                         'category_id' => $request->category_id,
                         'biography' => $request->biography,
-                        'experience' => $request->experience
+                        'experience' => $request->experience,
+                        'identifier' => $request->identifier
                     ]);
                 }
                 return response()->json(['code' => '200', 'success_message' => 'Register successfully', 'user' => $user, 'worker' => $worker, 'status' => true], 200);

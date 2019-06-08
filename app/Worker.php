@@ -21,7 +21,7 @@ class Worker extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'experience', 'biography', 'price', 'files', 'category_id'
+        'user_id', 'experience', 'biography', 'price', 'files', 'category_id', 'identifier'
     ];
 
     public function user()
