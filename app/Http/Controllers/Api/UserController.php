@@ -142,7 +142,10 @@ class UserController extends Controller
     public function checkPassword(Request $request)
     {
         $user = $request->user();
-        $check = Hash::check($request->password, $user->password );
-        dd($check);
+        if(Hash::check($request->password, $user->password )) {
+            return response()->json(['code' => 200, 'message' => 'Password is correct', 'status' => true ]);
+        } else {
+            return response()->json(['code' => 200, 'message' => 'Password is invalid', 'status' => false ]);
+        }
     }
 }
