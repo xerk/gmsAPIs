@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\User;
 use App\Region;
+use App\Worker;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Worker;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
