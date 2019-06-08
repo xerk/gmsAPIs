@@ -142,7 +142,7 @@ class UserController extends Controller
     public function checkPassword(Request $request)
     {
         $user = $request->user();
-
-        return Hash::check($request->password, $user->password );
+        $check = Hash::check($request->password, $user->password );
+        dd($check);
     }
 }
